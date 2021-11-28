@@ -1,0 +1,6 @@
+{
+  "entryPoints": [
+    "./src/perfil.ts"
+  ],
+  "out": "./docs"
+}
