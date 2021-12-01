@@ -1,14 +1,14 @@
 import { Perfil } from "./perfil"
 
 /**
- * Verificador de formato de un email
+ * Verificador de formato de un email.
  * @param email Email a validar
  * @return  Retorna...
  * ```
  * comentario
  * ```
  */
- const validateEmail = (email) => {
+const validateEmail = (email) => {
   return String(email)
   .toLowerCase()
   .match(

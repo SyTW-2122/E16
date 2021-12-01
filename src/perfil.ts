@@ -6,8 +6,9 @@ type typeOfLicence = 'A' | 'B' | 'C';
 
 export class Perfil {
   /**
-   * Constructor de la clase Perfil. Contiene todos los datos de la cuenta de usuario.
+   * Constructor de la clase Perfil. Contiene todos los datos públicos de la cuenta de usuario.
    * @param username Nombre de usuario
+   * @param age Edad del usuario
    * @param license Tipo de licencia del usuario
    * @param aboutMe Descripción personalizada del perfil de usuario
    */
