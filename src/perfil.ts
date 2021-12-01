@@ -31,13 +31,16 @@ export class Perfil {
   private email: string = ''; /** Se puede crear un struct para correo */
   private password: string = '';
   private license: typeOfLicence; /** Crear una estructura para las licencias */
+  private aboutMe: string = '';
   constructor(private nombreUsuario: string, private correo: string, 
-    private contraseña: string, private licencia: typeOfLicence) {
+    private contraseña: string, private licencia: typeOfLicence, 
+    private descripción: string) {
       if (validateEmail(correo)) {
         this.username = nombreUsuario;
         this.email = correo;
         this.password = contraseña;
         this.license = licencia;
+        this.aboutMe = descripción;
       }
   }
 
@@ -49,6 +52,9 @@ export class Perfil {
     return this.email;
   }
 
+  /**
+   * TODO: Añadir un tipo de encriptación a la contraseña
+   */
   validatePassword(contraseñaPrueba) {
     if (contraseñaPrueba == this.password) {
       return true;
@@ -59,5 +65,9 @@ export class Perfil {
 
   getLicense() {
     return this.license;
+  }
+
+  getAboutMe() {
+    return this.aboutMe;
   }
 }
