@@ -55,7 +55,8 @@
    * @return Devuelve el intervalo del precio en formato string.
    */
   getPriceEstimationString() {
-    let estimation: string = '[' + this.priceEstimation[0] + ' ~ ' + this.priceEstimation[1] + ']'; 
+    let estimation: string = '[' + this.priceEstimation[0] + 
+      ' ~ ' + this.priceEstimation[1] + ']'; 
     return estimation;
   }
 

@@ -20,17 +20,17 @@ const validateEmail = (email) => {
  * Clase Cuenta que contiene los datos personales del 
  */
 export class Cuenta {
-  private UserProfile: Perfil;
+  private userProfile: Perfil;
   private name: string;
   private surname: string;
   private email: string; /** Se puede crear un struct para correo */
   private password: string;
   private address: string;
   
-  constructor(private perfilUsuario: Perfil, private nombre: string, private apellidos: string,
-    private correo: string, private contraseña: string, 
-    private dirección: string) {
-    this.UserProfile = perfilUsuario;
+  constructor(private perfilUsuario: Perfil, private nombre: string, 
+    private apellidos: string, private correo: string,
+    private contraseña: string, private dirección: string) {
+    this.userProfile = perfilUsuario;
     this.name = nombre;
     this.surname = apellidos;
     this.email = correo;
@@ -39,7 +39,7 @@ export class Cuenta {
   }
 
   getUsername() {
-    return this.UserProfile.getUsername();
+    return this.userProfile.getUsername();
   }
   
   getEmail() {
@@ -47,11 +47,11 @@ export class Cuenta {
   }
 
   getLicense() {
-    return this.UserProfile.getLicense();
+    return this.userProfile.getLicense();
   }
 
   getAboutMe() {
-    return this.UserProfile.getAboutMe();
+    return this.userProfile.getAboutMe();
   }
 
   passwordValidation(contraseña: string) {
