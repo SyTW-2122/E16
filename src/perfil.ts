@@ -3,7 +3,6 @@
 */
 type typeOfLicence = 'A' | 'B' | 'C';
 
-
 export class Perfil {
   /**
    * Constructor de la clase Perfil. Contiene todos los datos públicos de la cuenta de usuario.
@@ -24,18 +23,30 @@ export class Perfil {
       this.aboutMe = descripción;
   }
 
+  /**
+   * Getter del Nombre de usuario.
+   */
   getUsername() {
     return this.username;
   }
 
+  /**
+   * Getter de la edad del usuario.
+   */
   getAge() {
     return this.age;
   }
 
+  /**
+   * Getter de la licencia de submarinismo del usuario.
+   */
   getLicense() {
     return this.license;
   }
 
+  /**
+   * Getter del texto personal del usuario.
+   */
   getAboutMe() {
     return this.aboutMe;
   }
