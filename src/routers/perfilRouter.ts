@@ -1,6 +1,4 @@
-//import * as express from 'express';
 var express = require('express');
-// import {perfilModel} from '../models/..';
 export const perfilRouter = express.Router();
 
 /**

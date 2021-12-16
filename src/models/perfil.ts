@@ -76,3 +76,5 @@ export const perfilSchema = new mongoose.Schema({
     trim: true,
   }
 });
+
+export const perfilModel = mongoose.model('perfilModel', perfilSchema);
