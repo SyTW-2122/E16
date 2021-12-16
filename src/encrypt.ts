@@ -1,6 +1,10 @@
-import {config} from "../app.config";
-import {Buffer} from 'buffer/';
-import * as crypto from "crypto-browserify";
+//import {config} from "../app.config";
+//import {Buffer} from 'buffer/';
+//import * as crypto from "crypto-browserify";
+
+var config = require('../app.config');
+var Buffer = require('buffer');
+var crypto = require('crypto-browserify');
 
 export class RsaService {
   private privateKey: string;

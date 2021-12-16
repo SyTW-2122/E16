@@ -1,4 +1,5 @@
-import * as express from 'express';
+//import * as express from 'express';
+var express = require('express');
 
 export const defaultRouter = express.Router();
 
