@@ -1,4 +1,5 @@
 var express = require('express');
+import {perfilModel} from '../models/perfil';
 export const perfilRouter = express.Router();
 
 /**
@@ -6,13 +7,13 @@ export const perfilRouter = express.Router();
  */
 
 // para consultar
-/*
-perfilRouter.get('/ingredients', async (req, res) => {
-  const filter = req.body.nombreAlimento?{nombreAlimento: req.body.nombreAlimento.toString()}:{};
+perfilRouter.get('/perfil', async (req, res) => {
+  //const filter = req.body.nombreAlimento?{nombreAlimento: req.body.nombreAlimento.toString()}:{};
+  const filter = req.body.username?{username: req.body.username.toString()}:{};
   try {
-    const alimentos10 = await perfilModel.find(filter);
-    if (alimentos10.length !== 0) {
-      return res.send(alimentos10);
+    const perfilesMatch = await perfilModel.find(filter);
+    if (perfilesMatch.length !== 0) {
+      return res.send(perfilesMatch);
     }
     return res.status(404).send();
   } catch (error) {
@@ -20,7 +21,8 @@ perfilRouter.get('/ingredients', async (req, res) => {
   }
 });
 
-perfilRouter.get('/ingredients/:id', async (req, res) => {
+/* // Getters adicionales
+perfilRouter.get('/perfil/:id', async (req, res) => {
   try {
     const alimentos = await perfilModel.findById(req.params.id);
     if (!alimentos) {
@@ -32,3 +34,14 @@ perfilRouter.get('/ingredients/:id', async (req, res) => {
   }
 });
 */
+
+// para crearlos, post o put
+perfilRouter.post('/perfil', async (req, res) => {
+  const perfil = new perfilModel(req.body);
+  try {
+    await perfil.save();
+    res.status(201).send(perfil);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
