@@ -7,7 +7,7 @@ export const perfilRouter = express.Router();
  */
 
 // para consultar
-perfilRouter.get('/perfil', async (req, res) => {
+perfilRouter.get('/Perfil', async (req, res) => {
   //const filter = req.body.nombreAlimento?{nombreAlimento: req.body.nombreAlimento.toString()}:{};
   const filter = req.body.username?{username: req.body.username.toString()}:{};
   try {
@@ -36,7 +36,7 @@ perfilRouter.get('/perfil/:id', async (req, res) => {
 */
 
 // para crearlos, post o put
-perfilRouter.post('/perfil', async (req, res) => {
+perfilRouter.post('/Perfil', async (req, res) => {
   const perfil = new perfilModel(req.body);
   try {
     await perfil.save();

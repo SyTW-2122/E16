@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 /**
  * Clase Punto submarinismo.
  * Contiene todos los datos de un Punto de Submarinismo.
@@ -68,3 +69,33 @@
     return this.priceEstimation;
   }
 }
+
+export const puntoSubSchema = new mongoose.Schema({
+  pointName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  location: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  pointDescription: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  dificulty: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  priceEstimation: {
+    type: Number,
+    required: true,
+    trim: true,
+  }
+});
+
+export const puntoSubModel = mongoose.model('puntoSubModel', puntoSubSchema);

@@ -21,7 +21,7 @@ fs.writeFileSync('./public-key', publicKey);
 
 const encryptedText = nodeRSA.encryptStringWithRsaPublicKey({ 
   text: 'hello', 
-  keyPath: path.join(__dirname, './public-key') 
+  //keyPath: path.join(__dirname, './public-key') 
 });
 
 console.log({ encryptedText });
@@ -34,7 +34,7 @@ console.log({ encryptedText });
 
 const decryptedText = nodeRSA.decryptStringWithRsaPrivateKey({ 
   text: encryptedText, 
-  keyPath: path.join(__dirname, './private-key') 
+  //keyPath: path.join(__dirname, './private-key') 
 });
 
 console.log({ decryptedText });
