@@ -1,15 +1,19 @@
 var express = require('express');
 import './db/mongoose';
 
+import {cuentaRouter} from './routers/cuentaRouter';
+import {localizacionRouter} from './routers/localizacionRouter';
 import {perfilRouter} from './routers/perfilRouter';
-//import {platoRouter} from './routers/platosRouter';
-//import {menuRouter} from './routers/menusRouter';
+import {puntoSubRouter} from './routers/puntoSubRouter';
+import {zonaRouter} from './routers/zonaRouter';
 
 const app = express();
 app.use(express.json());
+app.use(cuentaRouter);
+app.use(localizacionRouter);
 app.use(perfilRouter);
-//app.use(platoRouter);
-//app.use(menuRouter);
+app.use(puntoSubRouter);
+app.use(zonaRouter);
 
 const port = process.env.PORT || 3000;
 
