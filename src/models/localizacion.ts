@@ -32,3 +32,23 @@ export class Localizacion<T> implements auxiliar<T> {
     return this.arrayZone[position];
   }
 }
+
+export const localizacionSchema = new mongoose.Schema({
+  locationName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  locationDescription: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  arrayZone: {
+    type: [Zona],
+    required: true,
+    trim: true,
+  }
+});
+
+export const localizacionModel = mongoose.model('localizacionModel', localizacionSchema);

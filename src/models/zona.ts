@@ -154,3 +154,22 @@ interface searchEngine<T> {
   }
  }
 
+export const zonaSchema = new mongoose.Schema({
+  zoneName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  zoneDescription: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  pointsArray: {
+    type: [PuntoSubmarinismo],
+    required: true,
+    trim: true,
+  }
+});
+
+export const zonaModel = mongoose.model('zonaModel', zonaSchema);
