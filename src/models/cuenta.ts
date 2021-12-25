@@ -63,3 +63,37 @@ export class Cuenta {
   }
 }
 
+export const cuentaSchema = new mongoose.Schema({
+  userProfile: {
+    type: Perfil,
+    required: true,
+    trim: true
+  },
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  surname: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  address: {
+    type: String,
+    required: true,
+    trim: true
+  }
+});
+
+export const cuentaModel = mongoose.model('cuentaModel', cuentaSchema);

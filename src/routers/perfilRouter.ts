@@ -37,6 +37,7 @@ perfilRouter.get('/perfil/:id', async (req, res) => {
 
 // para crearlos, post o put
 perfilRouter.post('/Perfil', async (req, res) => {
+  console.log('Post Perfil');
   const perfil = new perfilModel(req.body);
   try {
     await perfil.save();
