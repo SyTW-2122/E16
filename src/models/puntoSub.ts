@@ -77,7 +77,7 @@ export const puntoSubSchema = new mongoose.Schema({
     trim: true,
   },
   location: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },
@@ -98,4 +98,4 @@ export const puntoSubSchema = new mongoose.Schema({
   }
 });
 
-export const puntoSubModel = mongoose.model('puntoSubModel', puntoSubSchema);
+export const puntoSubModel = mongoose.model('Puntos', puntoSubSchema);

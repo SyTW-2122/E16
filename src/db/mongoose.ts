@@ -1,14 +1,10 @@
 var mongoose = require('mongoose');
 
-const mongodb_url = /*process.env.MONGODB_URL ||*/ 'mongodb://127.0.0.1:27017/Diving-App';
-
-mongoose.Promise = global.Promise;  // Sacado de internet
+const mongodb_url = `mongodb+srv://diving-app:diving@cluster0.hcjkr.mongodb.net/Diving-App?retryWrites=true&w=majority`
 
 mongoose.connect(mongodb_url, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  //useCreateIndex: true,     // no soportada
-  //useFindAndModify: false,  // no soportada
+  useUnifiedTopology: true
 }).then(() => {
   console.log('Connection to MongoDB server established');
 }).catch(() => {

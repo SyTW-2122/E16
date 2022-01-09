@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 import { Zona } from "./zona";
 
 /**
@@ -45,10 +46,10 @@ export const localizacionSchema = new mongoose.Schema({
     trim: true,
   },
   arrayZone: {
-    type: [Zona],
+    type: String, // Sustituir ir por el id de la Zona correspondiente
     required: true,
     trim: true,
   }
 });
 
-export const localizacionModel = mongoose.model('localizacionModel', localizacionSchema);
+export const localizacionModel = mongoose.model('Localizaciones', localizacionSchema);

@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 import { PuntoSubmarinismo } from "./puntoSub";
 
 /**
@@ -166,10 +167,10 @@ export const zonaSchema = new mongoose.Schema({
     trim: true,
   },
   pointsArray: {
-    type: [PuntoSubmarinismo],
+    type: String, //[PuntoSubmarinismo],
     required: true,
     trim: true,
   }
 });
 
-export const zonaModel = mongoose.model('zonaModel', zonaSchema);
+export const zonaModel = mongoose.model('Zonas', zonaSchema);

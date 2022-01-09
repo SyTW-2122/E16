@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 import { Perfil } from "./perfil"
 
 /**
@@ -65,7 +66,7 @@ export class Cuenta {
 
 export const cuentaSchema = new mongoose.Schema({
   userProfile: {
-    type: Perfil,
+    type: String, //OBJECT ID. HAY QUE CAMBIARLO por el ID del Perfil
     required: true,
     trim: true
   },
@@ -96,4 +97,4 @@ export const cuentaSchema = new mongoose.Schema({
   }
 });
 
-export const cuentaModel = mongoose.model('cuentaModel', cuentaSchema);
+export const cuentaModel = mongoose.model('Cuentas', cuentaSchema);

@@ -1,5 +1,6 @@
 var express = require('express');
 import './db/mongoose';
+var morgan = require('morgan');
 
 import {cuentaRouter} from './routers/cuentaRouter';
 import {localizacionRouter} from './routers/localizacionRouter';
@@ -8,6 +9,7 @@ import {puntoSubRouter} from './routers/puntoSubRouter';
 import {zonaRouter} from './routers/zonaRouter';
 
 const app = express();
+app.use(morgan('dev'));   // comunica mejor los fallos
 app.use(express.json());
 app.use(cuentaRouter);
 app.use(localizacionRouter);
