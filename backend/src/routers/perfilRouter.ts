@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 import {perfilModel} from '../models/perfil';
 export const perfilRouter = express.Router();
 

@@ -1,13 +1,13 @@
-const routerDashboard = require('express').Router()
+const routerDashboard = require('express').Router();
 
 routerDashboard.get('/', (req, res) => {
   res.json({
     error: null,
-    data: { 
+    data: {
       title: 'Esta es una ruta protegida',
-      user: req.user
-    }
-  })
-})
+      user: req.user,
+    },
+  });
+});
 
-module.exports = routerDashboard
+module.exports = routerDashboard;

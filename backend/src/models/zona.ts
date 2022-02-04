@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-import { PuntoSubmarinismo } from "./puntoSub";
+let mongoose = require('mongoose');
+import {PuntoSubmarinismo} from "./puntoSub";
 
 /**
  * Interfaz genérica para poder tener un método de busca
@@ -13,8 +13,8 @@ interface searchEngine<T> {
 /**
  * Clase Zona. Recibe una implementación de la interfaz genérica searchEngine.
  */
- export class Zona<T> implements searchEngine<T> {
-   /**
+export class Zona<T> implements searchEngine<T> {
+  /**
     * Constructor de la clase Zona. Contiene todos los datos públicos de las zonas y
     * sus puntos de inmersión.
     * @param zoneName Nombre de la Zona
@@ -48,7 +48,7 @@ interface searchEngine<T> {
    * En la página web se crearía un formulario para introducir los datos del nuevo
    * punto de submarinismo. Todos esos datos deberían formatearse en un objeto PuntoSubmarinismo
    * y ese objeto es el que se introduce en este método.
-   * 
+   *
    * Añade un nuevo PuntoSubmarinismo a los puntos de inmersión de la zona.
    */
   addPointToArray(newPoint: PuntoSubmarinismo) {
@@ -139,7 +139,7 @@ interface searchEngine<T> {
    * Realiza la búsqueda en todos los atributos y devuelve todos los objetos que tienen alguna
    * coincidencia.
    */
-   finderOfPoints(searchVariable: T): PuntoSubmarinismo[] {
+  finderOfPoints(searchVariable: T): PuntoSubmarinismo[] {
     const matchedResults: PuntoSubmarinismo[] = [];
     if (typeof searchVariable == 'number') {
       return this.searchByPrice(searchVariable);
@@ -153,7 +153,7 @@ interface searchEngine<T> {
     }
     return matchedResults;
   }
- }
+}
 
 export const zonaSchema = new mongoose.Schema({
   zoneName: {
@@ -167,10 +167,10 @@ export const zonaSchema = new mongoose.Schema({
     trim: true,
   },
   pointsArray: {
-    type: String, //[PuntoSubmarinismo],
+    type: String, // [PuntoSubmarinismo],
     required: true,
     trim: true,
-  }
+  },
 });
 
 export const zonaModel = mongoose.model('Zonas', zonaSchema);

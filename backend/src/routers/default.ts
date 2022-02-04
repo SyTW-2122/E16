@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 
 export const defaultRouter = express.Router();
 

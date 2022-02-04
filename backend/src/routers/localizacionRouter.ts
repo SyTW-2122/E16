@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 import {localizacionModel} from '../models/localizacion';
 export const localizacionRouter = express.Router();
 

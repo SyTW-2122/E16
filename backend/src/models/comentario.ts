@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 export class Comentario {
   public user: string;
   public comment: string;
   constructor(private usuario: string, private comentario: string) {
     this.user = usuario;
-    this.comment = comentario; 
+    this.comment = comentario;
   }
 }
 
@@ -19,7 +19,7 @@ export const comentarioSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-  }
+  },
 });
 
-export const comentarioModel = mongoose.model('Comentarios', comentarioSchema)
+export const comentarioModel = mongoose.model('Comentarios', comentarioSchema);

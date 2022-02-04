@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 import {zonaModel} from '../models/zona';
 export const zonaRouter = express.Router();
 

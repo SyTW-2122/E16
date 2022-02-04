@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 /**
  * Clase Punto submarinismo.
  * Contiene todos los datos de un Punto de Submarinismo.
@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
  * @param dificulty Nivel de dificultad del Punto de Inmersión.
  * @param priceEstimation Array de dos elementos donde se especifica el intervalo de precio de la inmersión.
  */
- export class PuntoSubmarinismo {
+export class PuntoSubmarinismo {
   private pointName: string;
   private location: string;
   private pointDescription: string;
@@ -19,7 +19,7 @@ var mongoose = require('mongoose');
     this.pointName = nombrePunto;
     this.location = localizacion;
     this.pointDescription = descripcion;
-    this.dificulty =  dificultad;
+    this.dificulty = dificultad;
     this.priceEstimation = precioEstimacion;
   }
 
@@ -56,8 +56,8 @@ var mongoose = require('mongoose');
    * @return Devuelve el intervalo del precio en formato string.
    */
   getPriceEstimationString() {
-    let estimation: string = '[' + this.priceEstimation[0] + 
-      ' ~ ' + this.priceEstimation[1] + ']'; 
+    let estimation: string = '[' + this.priceEstimation[0] +
+      ' ~ ' + this.priceEstimation[1] + ']';
     return estimation;
   }
 
@@ -65,7 +65,7 @@ var mongoose = require('mongoose');
    * Getter de la estimación de precio.
    * @return Devuelve el intervalo del precio en formato Array de dos valores enteros.
    */
-   getPriceEstimationArray() {
+  getPriceEstimationArray() {
     return this.priceEstimation;
   }
 }
@@ -95,7 +95,7 @@ export const puntoSubSchema = new mongoose.Schema({
     type: Number,
     required: true,
     trim: true,
-  }
+  },
 });
 
 export const puntoSubModel = mongoose.model('Puntos', puntoSubSchema);

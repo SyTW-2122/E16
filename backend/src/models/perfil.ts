@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-/* 
+let mongoose = require('mongoose');
+/*
 *   Primera versión Clase Perfil de usuario
 */
 type typeOfLicence = 'A' | 'B' | 'C';
@@ -16,12 +16,12 @@ export class Perfil {
   private age: number;
   private license: typeOfLicence; /** Crear una estructura para las licencias */
   private aboutMe: string = '';
-  constructor(private nombreUsuario: string, private licencia: typeOfLicence, 
+  constructor(private nombreUsuario: string, private licencia: typeOfLicence,
     private edad: number, private descripción: string) {
-      this.username = nombreUsuario;
-      this.age = edad;
-      this.license = licencia;
-      this.aboutMe = descripción;
+    this.username = nombreUsuario;
+    this.age = edad;
+    this.license = licencia;
+    this.aboutMe = descripción;
   }
 
   /**
@@ -68,13 +68,13 @@ export const perfilSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['A', 'B', 'C']
+    enum: ['A', 'B', 'C'],
   },
   aboutMe: {
     type: String,
     required: true,
     trim: true,
-  }
+  },
 });
 
 export const perfilModel = mongoose.model('Perfiles', perfilSchema);

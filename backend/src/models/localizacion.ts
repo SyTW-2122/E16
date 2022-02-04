@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-import { Zona } from "./zona";
+let mongoose = require('mongoose');
+import {Zona} from "./zona";
 
 /**
  * Interfaz auxiliar para crear un tipado genérico en la clase
@@ -8,7 +8,7 @@ import { Zona } from "./zona";
 interface auxiliar<T> {}
 
 /**
- * 
+ *
  */
 export class Localizacion<T> implements auxiliar<T> {
   private locationName: string;
@@ -49,7 +49,7 @@ export const localizacionSchema = new mongoose.Schema({
     type: String, // Sustituir ir por el id de la Zona correspondiente
     required: true,
     trim: true,
-  }
+  },
 });
 
 export const localizacionModel = mongoose.model('Localizaciones', localizacionSchema);
