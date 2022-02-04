@@ -11,7 +11,8 @@ export class Comentario {
 
 export const comentarioSchema = new mongoose.Schema({
   user: {
-    type: String,
+    // type: String,
+    type: {type: mongoose.Schema.Types.ObjectId, ref: 'Cuenta'},
     required: true,
     trim: true,
   },
