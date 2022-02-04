@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+  },
+  "exclude": [
+    "./frontend",
+    "./dist",
+    "./node_modules"]
+}
