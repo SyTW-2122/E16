@@ -2,22 +2,6 @@ var mongoose = require('mongoose');
 import { Perfil } from "./perfil"
 
 /**
- * Verificador de formato de un email.
- * @param email Email a validar
- * @return  Retorna...
- * ```
- * comentario
- * ```
- */
-const validateEmail = (email) => {
-  return String(email)
-  .toLowerCase()
-  .match(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
-};
-
-/**
  * Clase Cuenta que contiene los datos personales del 
  */
 export class Cuenta {
@@ -70,14 +54,19 @@ export const cuentaSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  userID: {
+    type: Number,
+    required: false,
+    trim: true
+  },
   name: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   surname: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   email: {
@@ -92,7 +81,7 @@ export const cuentaSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   }
 });
