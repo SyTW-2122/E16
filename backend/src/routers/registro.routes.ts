@@ -94,13 +94,6 @@ registerRouter.post('/registro', async (req, res) => {
   const salt = await bcrypt.genSalt(10); // Nº aleatorio para encriptar
   const encriptedPassword = await bcrypt.hash(req.body.password, salt);
 
-  let randomID = Math.random() * (MAX_ID - MIN_ID) + MIN_ID;
-  let isRandomIDExist = await cuentaModel.findOne({userID: req.body.userID});
-  while (isRandomIDExist) {
-    randomID = Math.random() * (MAX_ID - MIN_ID) + MIN_ID;
-    isRandomIDExist = await cuentaModel.findOne({userID: req.body.userID});
-  }
-
   const cuentaNueva = new cuentaModel({
     nickname: req.body.nickname,
     email: req.body.email,
