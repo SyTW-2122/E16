@@ -15,10 +15,6 @@ const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Declaramos constantes del rango de los ID
-const MAX_ID = 10000;
-const MIN_ID = 1;
-
 // Esquema de registro con las valisdaciones de joi
 const schemaRegister = Joi.object({
   nickname: Joi.string().min(6).max(255).required(),
