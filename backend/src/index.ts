@@ -16,7 +16,7 @@ const verifyToken = require('./routers/verifyToken');
 // Creamos la variable de configuración
 const corsOptions = {
   // Aqui debemos reemplazar el * por el dominio de nuestro front
-  origin: 'http://localhost:4200/',
+  origin: ['http://localhost:3000', 'http://localhost:4200'],
   // Es necesario para navegadores antiguos o algunos SmartTVs
   optionsSuccessStatus: 200,
 };

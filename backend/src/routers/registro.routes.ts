@@ -60,8 +60,22 @@ registerRouter.post('/login', async (req, res) => {
   });
 });
 
+registerRouter.options('/registro', async (req, res) => {
+  console.log('aaaaaaaaaaa');
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+    },
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+});
 
 registerRouter.post('/registro', async (req, res) => {
+  console.log('bbbbbbbb');
   // Dentro del método que invoca POST
   // Usaremos la propiedad error del objeto que nos entrega schemaRegister.validate()
   const {error} = schemaRegister.validate(req.body);
