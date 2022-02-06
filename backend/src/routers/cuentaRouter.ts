@@ -3,9 +3,10 @@ import {cuentaModel} from '../models/cuenta';
 export const cuentaRouter = express.Router();
 
 cuentaRouter.get('/cuenta', async (req, res) => {
-  const filterID = req.body._id?{_id: req.body._id}:{};
+  // const filterID = req.body._id?{_id: req.body._id}:{};
+  const nicknameFilter = req.body.nickname?{nickname: req.body.nickname}:{};
   try {
-    const cuentasMatch = await cuentaModel.find(filterID);
+    const cuentasMatch = await cuentaModel.find(nicknameFilter);
     if (cuentasMatch.length !== 0) {
       return res.json(cuentasMatch);
     }
@@ -19,8 +20,9 @@ cuentaRouter.get('/cuenta', async (req, res) => {
 // Método a mejorar, pues crea una cuenta nueva con los mismo parámetros,
 // elimina la anterior y guarda la cuenta nueva.
 cuentaRouter.patch('/cuenta', async (req, res) => {
-  const filterID = req.body._id?{_id: req.body._id}:{};
-  const cuentaEncontrada = await cuentaModel.findOne(filterID);
+  // const filterID = req.body._id?{_id: req.body._id}:{};
+  const nicknameFilter = req.body.nickname?{nickname: req.body.nickname}:{};
+  const cuentaEncontrada = await cuentaModel.findOne(nicknameFilter);
   if (!cuentaEncontrada) return res.status(401).json({error: 'No se encontró la cuenta'});
 
   let newNickname = cuentaEncontrada.nickname;
