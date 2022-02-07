@@ -79,6 +79,11 @@ export const cuentaSchema = new mongoose.Schema({
     required: false,
     trim: true,
   },
+  profileID: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Perfiles',
+    required: false,
+    trim: true,
+  },
 });
 
 export const cuentaModel = mongoose.model('Cuentas', cuentaSchema);

@@ -54,8 +54,8 @@ export class Perfil {
 }
 
 export const perfilSchema = new mongoose.Schema({
-  username: {
-    type: String,
+  userID: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Cuentas',
     required: true,
     trim: true,
   },

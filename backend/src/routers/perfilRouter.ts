@@ -1,5 +1,6 @@
 let express = require('express');
 import {perfilModel} from '../models/perfil';
+import {cuentaModel} from "../models/cuenta";
 export const perfilRouter = express.Router();
 
 perfilRouter.get('/Perfil', async (req, res) => {
@@ -28,9 +29,16 @@ perfilRouter.get('/Perfil/:id', async (req, res) => {
 });
 
 perfilRouter.post('/Perfil', async (req, res) => {
-  const perfil = new perfilModel(req.body);
+  const perfil = new perfilModel({
+    userID: req.body.userID,
+    age: req.body.age,
+    license: req.body.license,
+    aboutMe: req.body.aboutMe,
+  });
+  const finderID = await cuentaModel.findById(req.body.userID);
   try {
     await perfil.save();
+    await cuentaModel.update({_id: finderID}, {$set: {profileID: perfil._id}});
     res.status(201).json(perfil);
   } catch (error) {
     res.status(400).send(error);
