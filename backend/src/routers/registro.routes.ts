@@ -42,20 +42,26 @@ registerRouter.post('/login', async (req, res) => {
 
   // Creando token
   const token = jwt.sign({
-    name: cuenta.userProfile,
+    name: cuenta.username,
     email: cuenta.email,
     id: cuenta._id,
   }, "palabra");
 
   // Colocando el token en el header y el cuerpo de la respuesta
+  /*
   res.header('auth-token', token).json({
     error: null,
     data: {token},
     message: 'Bienvenido',
   });
-
+  */
   res.json({
     error: null,
+    header: {
+      error: null,
+      data: {token},
+      message: 'Bienvenido',
+    },
     data: 'Bienvenido',
   });
 });
