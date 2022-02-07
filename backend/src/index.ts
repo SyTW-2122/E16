@@ -16,12 +16,13 @@ const verifyToken = require('./routers/verifyToken');
 // Creamos la variable de configuración
 const corsOptions = {
   // Aqui debemos reemplazar el * por el dominio de nuestro front
-  origin: ['http://localhost:3000', 'http://localhost:4200'],
+  origin: ['http://localhost:3000', 'http://localhost:4200', '*'],
   // Es necesario para navegadores antiguos o algunos SmartTVs
   optionsSuccessStatus: 200,
 };
 
 const app = express();
+app.use(cors(corsOptions));
 app.use(morgan('dev')); // comunica mejor los fallos
 app.use(express.json());
 app.use(cuentaRouter);
@@ -32,7 +33,7 @@ app.use(zonaRouter);
 
 app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use(registerRouter);
-app.use(cors(corsOptions));
+
 
 const port = process.env.PORT || 3000;
 

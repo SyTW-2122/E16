@@ -5,7 +5,7 @@ import {Perfil} from "./perfil";
  * Clase Cuenta que contiene los datos personales del
  */
 export class Cuenta {
-  private nickname: Perfil;
+  private username: Perfil;
   private name: string;
   private surname: string;
   private email: string; /** Se puede crear un struct para correo */
@@ -15,7 +15,7 @@ export class Cuenta {
   constructor(private perfilUsuario: Perfil, private nombre: string,
     private apellidos: string, private correo: string,
     private contraseña: string, private dirección: string) {
-    this.nickname = perfilUsuario;
+    this.username = perfilUsuario;
     this.name = nombre;
     this.surname = apellidos;
     this.email = correo;
@@ -24,7 +24,7 @@ export class Cuenta {
   }
 
   getUsername() {
-    return this.nickname.getUsername();
+    return this.username.getUsername();
   }
 
   getEmail() {
@@ -32,11 +32,11 @@ export class Cuenta {
   }
 
   getLicense() {
-    return this.nickname.getLicense();
+    return this.username.getLicense();
   }
 
   getAboutMe() {
-    return this.nickname.getAboutMe();
+    return this.username.getAboutMe();
   }
 
   passwordValidation(contraseña: string) {
@@ -49,7 +49,7 @@ export class Cuenta {
 }
 
 export const cuentaSchema = new mongoose.Schema({
-  nickname: {
+  username: {
     type: String, // OBJECT ID. HAY QUE CAMBIARLO por el ID del Perfil
     required: true,
     trim: true,

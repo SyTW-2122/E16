@@ -12,7 +12,7 @@ export class Perfil {
    * @param license Tipo de licencia del usuario
    * @param aboutMe Descripción personalizada del perfil de usuario
    */
-  private username: string = '';
+  private username: string = ''; // tendría que ser el ID
   private age: number;
   private license: typeOfLicence; /** Crear una estructura para las licencias */
   private aboutMe: string = '';

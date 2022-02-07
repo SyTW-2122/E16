@@ -17,7 +17,7 @@ const jwt = require('jsonwebtoken');
 
 // Esquema de registro con las valisdaciones de joi
 const schemaRegister = Joi.object({
-  nickname: Joi.string().min(6).max(255).required(),
+  username: Joi.string().min(6).max(255).required(),
   email: Joi.string().min(6).max(255).required().email(),
   password: Joi.string().min(6).max(1024).required(),
 });
@@ -60,24 +60,10 @@ registerRouter.post('/login', async (req, res) => {
   });
 });
 
-registerRouter.options('/registro', async (req, res) => {
-  console.log('aaaaaaaaaaa');
-  const response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-    },
-    body: JSON.stringify('Hello from Lambda!'),
-  };
-  return response;
-});
-
 registerRouter.post('/registro', async (req, res) => {
-  console.log('bbbbbbbb');
   // Dentro del método que invoca POST
   // Usaremos la propiedad error del objeto que nos entrega schemaRegister.validate()
+  console.log(req.body);
   const {error} = schemaRegister.validate(req.body);
 
   // Si este error existe, aqui se termina la ejecución devolviendonos el error
@@ -87,16 +73,16 @@ registerRouter.post('/registro', async (req, res) => {
     );
   }
 
-  const isNicknameExist = await cuentaModel.findOne({nickname: req.body.userProfile});
-  if (isNicknameExist) {
-    return res.status(400).json(
+  const isUsernameExist = await cuentaModel.findOne({username: req.body.username});
+  if (isUsernameExist) {
+    return res.status(401).json(
         {error: 'Nombre de usuario ya registrado'},
     );
   }
 
   const isEmailExist = await cuentaModel.findOne({email: req.body.email});
   if (isEmailExist) {
-    return res.status(400).json(
+    return res.status(402).json(
         {error: 'Email ya registrado'},
     );
   }
@@ -105,7 +91,7 @@ registerRouter.post('/registro', async (req, res) => {
   const encriptedPassword = await bcrypt.hash(req.body.password, salt);
 
   const cuentaNueva = new cuentaModel({
-    nickname: req.body.nickname,
+    username: req.body.username,
     email: req.body.email,
     password: encriptedPassword,
   });
@@ -117,7 +103,7 @@ registerRouter.post('/registro', async (req, res) => {
       data: savedAccount,
     });
   } catch (error) {
-    res.status(400).json({error});
+    res.status(403).json({error});
   }
 });
 

@@ -4,9 +4,9 @@ export const cuentaRouter = express.Router();
 
 cuentaRouter.get('/cuenta', async (req, res) => {
   // const filterID = req.body._id?{_id: req.body._id}:{};
-  const nicknameFilter = req.body.nickname?{nickname: req.body.nickname}:{};
+  const usernameFilter = req.body.username?{username: req.body.username}:{};
   try {
-    const cuentasMatch = await cuentaModel.find(nicknameFilter);
+    const cuentasMatch = await cuentaModel.find(usernameFilter);
     if (cuentasMatch.length !== 0) {
       return res.json(cuentasMatch);
     }
@@ -21,13 +21,13 @@ cuentaRouter.get('/cuenta', async (req, res) => {
 // elimina la anterior y guarda la cuenta nueva.
 cuentaRouter.patch('/cuenta', async (req, res) => {
   // const filterID = req.body._id?{_id: req.body._id}:{};
-  const nicknameFilter = req.body.nickname?{nickname: req.body.nickname}:{};
-  const cuentaEncontrada = await cuentaModel.findOne(nicknameFilter);
+  const usernameFilter = req.body.username?{username: req.body.username}:{};
+  const cuentaEncontrada = await cuentaModel.findOne(usernameFilter);
   if (!cuentaEncontrada) return res.status(401).json({error: 'No se encontró la cuenta'});
 
-  let newNickname = cuentaEncontrada.nickname;
-  if (typeof req.body.nickname != undefined) {
-    newNickname = req.body.nickname;
+  let newUsername = cuentaEncontrada.username;
+  if (typeof req.body.username != undefined) {
+    newUsername = req.body.username;
   }
 
   let newName = "";
@@ -47,7 +47,7 @@ cuentaRouter.patch('/cuenta', async (req, res) => {
 
   const cuentaNueva = new cuentaModel({
     _id: cuentaEncontrada._id,
-    nickname: newNickname,
+    username: newUsername,
     name: newName,
     surname: newSurname,
     email: cuentaEncontrada.email,
