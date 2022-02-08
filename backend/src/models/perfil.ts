@@ -1,8 +1,8 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 /*
 *   Primera versión Clase Perfil de usuario
 */
-type typeOfLicence = 'A' | 'B' | 'C';
+export type typeOfLicence = 'A' | 'B' | 'C';
 
 export class Perfil {
   /**
@@ -12,55 +12,48 @@ export class Perfil {
    * @param license Tipo de licencia del usuario
    * @param aboutMe Descripción personalizada del perfil de usuario
    */
-  private username: string = ''; // tendría que ser el ID
-  private age: number;
-  private license: typeOfLicence; /** Crear una estructura para las licencias */
-  private aboutMe: string = '';
-  constructor(private nombreUsuario: string, private licencia: typeOfLicence,
-    private edad: number, private descripción: string) {
-    this.username = nombreUsuario;
-    this.age = edad;
-    this.license = licencia;
-    this.aboutMe = descripción;
-  }
-
-  /**
-   * Getter del Nombre de usuario.
-   */
-  getUsername() {
-    return this.username;
+  public _username: string = "";
+  public _age: string;
+  public _license: typeOfLicence; /** Crear una estructura para las licencias */
+  public _description: string = '';
+  constructor(username: string, license: typeOfLicence,
+    age: string, description: string) {
+    this._username = username;
+    this._age = age;
+    this._license = license;
+    this._description = description;
   }
 
   /**
    * Getter de la edad del usuario.
    */
   getAge() {
-    return this.age;
+    return this._age;
   }
 
   /**
    * Getter de la licencia de submarinismo del usuario.
    */
   getLicense() {
-    return this.license;
+    return this._license;
   }
 
   /**
    * Getter del texto personal del usuario.
    */
   getAboutMe() {
-    return this.aboutMe;
+    return this._description;
   }
 }
 
 export const perfilSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId, ref: 'Cuentas',
+  username: {
+    type: String,
     required: true,
     trim: true,
   },
   age: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },
@@ -70,7 +63,7 @@ export const perfilSchema = new mongoose.Schema({
     trim: true,
     enum: ['A', 'B', 'C'],
   },
-  aboutMe: {
+  description: {
     type: String,
     required: true,
     trim: true,

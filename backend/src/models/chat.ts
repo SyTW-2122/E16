@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 import {Comentario} from "./comentario";
 
+// pueda que no haga falta usarla
 export class Chat {
   private owner: string; // Dueño sería una Cuenta
   public comments: Comentario[] = [];
@@ -16,11 +17,11 @@ export const chatSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  comments: {
+  comments: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'Comentarios',
     required: true,
     trim: true,
-  },
+  },]
 });
 
 export const chatModel = mongoose.model('Chats', chatSchema);

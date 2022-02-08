@@ -11,6 +11,6 @@ mongoose.connect(mongodb_url, {
   console.log('Unnable to connect to MongoDB server');
 });
 
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', (err: any) => {
   console.log(err);
 });

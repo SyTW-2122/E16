@@ -24,7 +24,7 @@ export class Cuenta {
   }
 
   getUsername() {
-    return this.username.getUsername();
+    return this.username;
   }
 
   getEmail() {

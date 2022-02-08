@@ -14,12 +14,13 @@ comentarioRouter.post('/comentario', async (req, res) => {
   if (error) return res.status(401).json({error: error.details[0].message});
   // mejorarlo a que busque por id
   // const cuenta = await cuentaModel.findOne({_id: req.body._id});
-  const cuenta = await cuentaModel.findOne({nickname: req.body.nickname});
+  const cuenta = await cuentaModel.findOne({username: req.body.username});
   if (!cuenta) return res.status(404).json({error: 'Nombre de usuario no existe'});
   const comentarioNuevo = new comentarioModel({
-    user: cuenta._id,
+    postedBy: cuenta._id,
     comment: req.body.comentario,
   });
+
   try {
     await comentarioNuevo.save();
     res.json(comentarioNuevo);

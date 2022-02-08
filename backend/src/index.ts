@@ -16,7 +16,7 @@ const verifyToken = require('./routers/verifyToken');
 // Creamos la variable de configuración
 const corsOptions = {
   // Aqui debemos reemplazar el * por el dominio de nuestro front
-  origin: ['http://localhost:3000', 'http://localhost:4200', '*'],
+  origin: '*',
   // Es necesario para navegadores antiguos o algunos SmartTVs
   optionsSuccessStatus: 200,
 };
@@ -35,7 +35,7 @@ app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use(registerRouter);
 
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);

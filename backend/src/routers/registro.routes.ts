@@ -30,15 +30,15 @@ const schemaLogin = Joi.object({
 registerRouter.post('/login', async (req, res) => {
   // Validaciones de login
   const {error} = schemaLogin.validate(req.body);
-  if (error) return res.status(400).json({error: error.details[0].message});
+  if (error) return res.status(402).json({error: error.details[0].message});
 
   // Validacion de existencia
   const cuenta = await cuentaModel.findOne({email: req.body.email});
-  if (!cuenta) return res.status(400).json({error: 'Cuenta no encontrada'});
+  if (!cuenta) return res.status(404).json({error: 'Cuenta no encontrada'});
 
   // Validacion de password en la base de datos
   const validPassword = await bcrypt.compare(req.body.password, cuenta.password);
-  if (!validPassword) return res.status(400).json({error: 'Constraseña invalida'});
+  if (!validPassword) return res.status(403).json({error: 'Constraseña invalida'});
 
   // Creando token
   const token = jwt.sign({
