@@ -34,6 +34,15 @@ app.use(zonaRouter);
 app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use(registerRouter);
 
+// Crear servidor htpp
+import http from "http";
+import socketio from "socket.io";
+import sockets from "./sockets";
+
+const server = http.createServer(app);
+const io = socketio(server);
+sockets(io);
+
 
 const port = 3000;
 
