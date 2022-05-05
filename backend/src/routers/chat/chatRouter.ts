@@ -1,5 +1,5 @@
 let express = require('express');
-import {chatModel} from '../models/chat';
+import {chatModel} from '../../models/chat';
 export const chatRouter = express.Router();
 
 chatRouter.get('/Chat', async (req, res) => {

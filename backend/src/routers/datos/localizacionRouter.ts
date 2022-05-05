@@ -1,5 +1,5 @@
 let express = require('express');
-import {localizacionModel} from '../models/localizacion';
+import {localizacionModel} from '../../models/localizacion';
 export const localizacionRouter = express.Router();
 
 localizacionRouter.get('/Localizacion', async (req, res) => {

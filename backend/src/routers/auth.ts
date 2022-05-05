@@ -1,7 +1,7 @@
-import {Router} from "express";
+/* import {Router} from "express";
 const router = Router();
 
-/*
+
 import * as authCtrl from "../controllers/auth.controller";
 import {verifySignup} from "../middlewares";
 
@@ -20,5 +20,5 @@ router.post(
 );
 
 router.post("/signin", authCtrl.signin); // inicio sesion
-*/
-export default router;
+
+export default router; */

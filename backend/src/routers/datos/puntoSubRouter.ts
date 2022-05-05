@@ -1,5 +1,5 @@
 let express = require('express');
-import {puntoSubModel} from '../models/puntoSub';
+import {puntoSubModel} from '../../models/puntoSub';
 export const puntoSubRouter = express.Router();
 
 puntoSubRouter.get('/puntoSub', async (req, res) => {

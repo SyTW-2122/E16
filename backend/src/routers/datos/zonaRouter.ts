@@ -1,5 +1,5 @@
 let express = require('express');
-import {zonaModel} from '../models/zona';
+import {zonaModel} from '../../models/zona';
 export const zonaRouter = express.Router();
 
 zonaRouter.get('/zona', async (req, res) => {

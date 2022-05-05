@@ -1,6 +1,6 @@
 let express = require('express');
-import {comentarioModel} from '../models/comentario';
-import {cuentaModel} from "../models/cuenta";
+import {comentarioModel} from '../../models/comentario';
+import {cuentaModel} from "../../models/cuenta";
 export const comentarioRouter = express.Router();
 
 comentarioRouter.get('/comentario', async (req, res) => {

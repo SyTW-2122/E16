@@ -1,11 +1,10 @@
-import {chatSchema} from './models/chat'
+/**
+import {chatSchema} from '../../models/chat';
 
-export default io => {
-
+export default (io) => {
   let users = {};
 
-  io.on('connection', async socket => {
-
+  io.on('connection', async (socket) => {
     let messages = await chatSchema.find({}).limit(8).sort('-created');
 
     socket.emit('load old msgs', messages);
@@ -23,19 +22,19 @@ export default io => {
 
     // receive a message a broadcasting
     socket.on('send message', async (data, cb) => {
-      var msg = data.trim();
+      let msg = data.trim();
 
       // Enviar mensajes privados con /w [user destino] [msg]
       if (msg.substr(0, 3) === '/w ') {
         msg = msg.substr(3);
-        var index = msg.indexOf(' ');
-        if(index !== -1) {
-          var name = msg.substring(0, index);
-          var msg = msg.substring(index + 1);
+        let index = msg.indexOf(' ');
+        if (index !== -1) {
+          let name = msg.substring(0, index);
+          msg = msg.substring(index + 1);
           if (name in users) {
             users[name].emit('whisper', {
               msg,
-              owner: socket.nickname 
+              owner: socket.nickname,
             });
           } else {
             cb('Error! Enter a valid User');
@@ -45,22 +44,21 @@ export default io => {
         }
       } else {
         // Mensaje normal
-        var newMsg = new chatSchema({
+        let newMsg = new chatSchema({
           owner: socket.nickname,
-          message: msg
+          message: msg,
         });
         await newMsg.save();
-      
+
         io.sockets.emit('new message', {
           message: msg,
-          owner: socket.nickname
+          owner: socket.nickname,
         });
-
       }
     });
 
-    socket.on('disconnect', data => {
-      if(!socket.nickname) return;
+    socket.on('disconnect', (data) => {
+      if (!socket.nickname) return;
       delete users[socket.nickname];
       updateNicknames();
     });
@@ -69,5 +67,5 @@ export default io => {
       io.sockets.emit('usernames', Object.keys(users));
     }
   });
-
-}
+};
+*/

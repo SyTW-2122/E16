@@ -22,30 +22,6 @@ export class Cuenta {
     this.password = contraseña;
     this.address = dirección;
   }
-
-  getUsername() {
-    return this.username;
-  }
-
-  getEmail() {
-    return this.email;
-  }
-
-  getLicense() {
-    return this.username.getLicense();
-  }
-
-  getAboutMe() {
-    return this.username.getAboutMe();
-  }
-
-  passwordValidation(contraseña: string) {
-    if (contraseña == this.password) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 
 export const cuentaSchema = new mongoose.Schema({

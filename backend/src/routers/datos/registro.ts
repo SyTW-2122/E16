@@ -7,10 +7,12 @@ La funcion que se le pasa tiene dos parametros req y res
 
 - Para probar nuestra ruta POST tomará el response res utilizará .json para crear un json y enviarlo de vuelta al usuario con el mensaje
 */
-
+require('dotenv').config();
 export const registerRouter = require('express').Router();
-// const cuentaModel = require('../models/cuenta');
-import {cuentaModel} from "../models/cuenta";
+import {cuentaModel} from "../../models/cuenta";
+
+const config = require('../jwt/config');
+
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -40,30 +42,32 @@ registerRouter.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, cuenta.password);
   if (!validPassword) return res.status(403).json({error: 'Constraseña invalida'});
 
-  // Creando token
-  const token = jwt.sign({
-    name: cuenta.username,
-    email: cuenta.email,
-    id: cuenta._id,
-  }, "palabra");
+  try {
+    // const secret: string = config.JWTsecret;
+    const secret = "Cambiar por variable";
+    console.log(secret);
+    // Creando token
+    const token = jwt.sign({
+      name: cuenta.username,
+      email: cuenta.email,
+      id: cuenta._id,
+    }, secret);
 
-  // Colocando el token en el header y el cuerpo de la respuesta
-  /*
-  res.header('auth-token', token).json({
-    error: null,
-    data: {token},
-    message: 'Bienvenido',
-  });
-  */
-  res.json({
-    error: null,
-    header: {
+    // Colocando el token en el header y el cuerpo de la respuesta
+    res.json({
       error: null,
-      data: {token},
-      message: 'Bienvenido',
-    },
-    data: 'Bienvenido',
-  });
+      header: {
+        error: null,
+        data: {token},
+        message: 'Bienvenido',
+      },
+      data: 'Bienvenido',
+    });
+
+    return res.status(200).send();
+  } catch (error) {
+    return res.status(501).send('Error al generar el token');
+  }
 });
 
 registerRouter.post('/registro', async (req, res) => {

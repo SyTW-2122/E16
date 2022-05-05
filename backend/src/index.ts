@@ -2,12 +2,12 @@ const express = require('express');
 import './db/mongoose';
 const morgan = require('morgan');
 
-import {cuentaRouter} from './routers/cuentaRouter';
-import {localizacionRouter} from './routers/localizacionRouter';
-import {perfilRouter} from './routers/perfilRouter';
-import {puntoSubRouter} from './routers/puntoSubRouter';
-import {zonaRouter} from './routers/zonaRouter';
-import {registerRouter} from './routers/registro.routes';
+import {cuentaRouter} from './routers/datos/cuentaRouter';
+import {localizacionRouter} from './routers/datos/localizacionRouter';
+import {perfilRouter} from './routers/datos/perfilRouter';
+import {puntoSubRouter} from './routers/datos/puntoSubRouter';
+import {zonaRouter} from './routers/datos/zonaRouter';
+import {registerRouter} from './routers/datos/registro';
 
 const cors = require('cors'); // Dependencia
 const dashboardRoutes = require('./routers/dashboard');
@@ -32,16 +32,19 @@ app.use(puntoSubRouter);
 app.use(zonaRouter);
 
 app.use('/api/dashboard', verifyToken, dashboardRoutes);
+// app.use('/cuenta', verifyToken, dashboardRoutes);
+// app.use(verifyToken, dashboardRoutes);
 app.use(registerRouter);
 
 // Crear servidor htpp
-import http from "http";
-import socketio from "socket.io";
-import sockets from "./sockets";
 
-const server = http.createServer(app);
-const io = socketio(server);
-sockets(io);
+// import http from "http";
+// import socketio from "socket.io";
+// import sockets from "./routers/chat/sockets";
+
+// const server = http.createServer(app);
+// const io = socketio(server);
+// sockets(io);
 
 
 const port = 3000;
