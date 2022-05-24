@@ -24,9 +24,10 @@ export class Cuenta {
   }
 }
 
+// DATOS PRIVADOS DEL USUARIO
 export const cuentaSchema = new mongoose.Schema({
   username: {
-    type: String, // OBJECT ID. HAY QUE CAMBIARLO por el ID del Perfil
+    type: String,
     required: true,
     trim: true,
   },

@@ -11,7 +11,9 @@ require('dotenv').config();
 export const registerRouter = require('express').Router();
 import {cuentaModel} from "../../models/cuenta";
 
-const config = require('../jwt/config');
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join('/mnt/d/Universidad/STW/E16/backend/', 'secret.txt');
 
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
@@ -43,59 +45,45 @@ registerRouter.post('/login', async (req, res) => {
   if (!validPassword) return res.status(403).json({error: 'Constraseña invalida'});
 
   try {
-    // const secret: string = config.JWTsecret;
-    const secret = "Cambiar por variable";
-    console.log(secret);
-    // Creando token
-    const token = jwt.sign({
-      name: cuenta.username,
-      email: cuenta.email,
-      id: cuenta._id,
-    }, secret);
+    fs.readFile(filePath, 'utf8', function(err, data) {
+      if (err) throw err;
+      // Leemos el secreto del fichero
+      const secret = data.toString();
+      try {
+        const token = jwt.sign({
+          name: cuenta.username,
+          email: cuenta.email,
+          id: cuenta._id,
+        }, secret);
 
-    // Colocando el token en el header y el cuerpo de la respuesta
-    res.json({
-      error: null,
-      header: {
-        error: null,
-        data: {token},
-        message: 'Bienvenido',
-      },
-      data: 'Bienvenido',
+        res.json({
+          error: null,
+          data: {token},
+          message: 'Bienvenido',
+        });
+        return res.status(200).send();
+      } catch (error) {
+        return res.status(501).send('Error al generar el token');
+      }
     });
-
-    return res.status(200).send();
   } catch (error) {
-    return res.status(501).send('Error al generar el token');
+    return res.status(400).send('Error al leer el token');
   }
 });
 
 registerRouter.post('/registro', async (req, res) => {
-  // Dentro del método que invoca POST
   // Usaremos la propiedad error del objeto que nos entrega schemaRegister.validate()
   console.log(req.body);
   const {error} = schemaRegister.validate(req.body);
 
   // Si este error existe, aqui se termina la ejecución devolviendonos el error
-  if (error) {
-    return res.status(400).json(
-        {error: error.details[0].message},
-    );
-  }
+  if (error) return res.status(400).json({error: error.details[0].message});
 
   const isUsernameExist = await cuentaModel.findOne({username: req.body.username});
-  if (isUsernameExist) {
-    return res.status(401).json(
-        {error: 'Nombre de usuario ya registrado'},
-    );
-  }
+  if (isUsernameExist) return res.status(401).json({error: 'Nombre de usuario ya registrado'});
 
   const isEmailExist = await cuentaModel.findOne({email: req.body.email});
-  if (isEmailExist) {
-    return res.status(402).json(
-        {error: 'Email ya registrado'},
-    );
-  }
+  if (isEmailExist) return res.status(402).json({error: 'Email ya registrado'});
 
   const salt = await bcrypt.genSalt(10); // Nº aleatorio para encriptar
   const encriptedPassword = await bcrypt.hash(req.body.password, salt);
@@ -116,5 +104,3 @@ registerRouter.post('/registro', async (req, res) => {
     res.status(403).json({error});
   }
 });
-
-// module.exports = registerRouter;

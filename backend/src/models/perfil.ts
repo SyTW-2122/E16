@@ -17,7 +17,7 @@ export class Perfil {
   public _license: typeOfLicence; /** Crear una estructura para las licencias */
   public _description: string = '';
   constructor(username: string, license: typeOfLicence,
-    age: string, description: string) {
+      age: string, description: string) {
     this._username = username;
     this._age = age;
     this._license = license;
@@ -46,6 +46,7 @@ export class Perfil {
   }
 }
 
+// DATOS PÚBLICOS DEL USUARIO
 export const perfilSchema = new mongoose.Schema({
   username: {
     type: String,

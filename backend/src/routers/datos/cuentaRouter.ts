@@ -7,9 +7,9 @@ export const cuentaRouter = express.Router();
 // NO ES LOGIN NI REGISTRO.
 // ÚNICAMENTE PARA RECUPERAR Y EXPONER LOS DATOS DE UNA CUENTA.
 cuentaRouter.get('/cuenta', async (req, res) => {
-  const filterID = req.body._id?{_id: req.body._id}:{};
-  const cuentaEncontrada = await cuentaModel.findById(filterID);
-  if (!cuentaEncontrada) return res.status(404).json({error: 'No se encontró la cuenta'});
+  // const filterID = req.body._id?{_id: req.body._id}:{};
+  // const cuentaEncontrada = await cuentaModel.findById(filterID);
+  // if (!cuentaEncontrada) return res.status(404).json({error: 'No se encontró la cuenta'});
 
   const usernameFilter = req.body.username?{username: req.body.username}:{};
   try {
