@@ -9,7 +9,7 @@ const filePath = path.join('/mnt/d/Universidad/STW/E16/backend/', 'secret.txt');
 export const verifyToken = (req, res, next) => {
   const token = req.header('token');
   // Validamos si no hay token
-  if (!token) return res.status(401).json({error: 'Acceso denegado'});
+  if (!token) return res.status(401).json({error: 'No tienes token.'});
   try {
     fs.readFile(filePath, 'utf8', function(err, data) {
       if (err) throw err;
@@ -20,7 +20,7 @@ export const verifyToken = (req, res, next) => {
         console.log(req.user);
         next(); // next() indica que el req paso la prueba y continue su camino
       } catch (error) {
-        res.status(403).json({error: 'Token de acceso no válido.'});
+        res.status(402).json({error: 'Token de acceso no válido.'});
       }
     });
   } catch (error) {

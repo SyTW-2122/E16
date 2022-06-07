@@ -1,16 +1,10 @@
 let express = require('express');
 import {cuentaModel} from '../../models/cuenta';
 export const cuentaRouter = express.Router();
-// import {verifyToken} from '../verifyToken';
-
 
 // NO ES LOGIN NI REGISTRO.
 // ÚNICAMENTE PARA RECUPERAR Y EXPONER LOS DATOS DE UNA CUENTA.
-cuentaRouter.get('/cuenta', async (req, res) => {
-  // const filterID = req.body._id?{_id: req.body._id}:{};
-  // const cuentaEncontrada = await cuentaModel.findById(filterID);
-  // if (!cuentaEncontrada) return res.status(404).json({error: 'No se encontró la cuenta'});
-
+cuentaRouter.get('/', async (req, res) => {
   const usernameFilter = req.body.username?{username: req.body.username}:{};
   try {
     const cuentasMatch = await cuentaModel.find(usernameFilter);
@@ -23,7 +17,7 @@ cuentaRouter.get('/cuenta', async (req, res) => {
   }
 });
 
-cuentaRouter.patch('/cuenta', async (req, res) => {
+cuentaRouter.patch('/', async (req, res) => {
   const filterID = req.body._id?{_id: req.body._id}:{};
   const cuentaEncontrada = await cuentaModel.findById(filterID);
   if (!cuentaEncontrada) return res.status(404).json({error: 'No se encontró la cuenta'});

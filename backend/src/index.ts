@@ -25,14 +25,14 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(morgan('dev')); // comunica mejor los fallos
 app.use(express.json());
-// app.use(cuentaRouter);
 app.use(localizacionRouter);
-app.use(perfilRouter);
 app.use(puntoSubRouter);
 app.use(zonaRouter);
 
-app.use('/api/dashboard', verifyToken, dashboardRoutes);
+// app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use('/cuenta', verifyToken, cuentaRouter);
+app.use('/perfil', verifyToken, perfilRouter);
+// app.use(perfilRouter);
 app.use(registerRouter);
 
 // Crear servidor htpp
