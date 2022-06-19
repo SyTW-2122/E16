@@ -16,7 +16,6 @@ export const perfilSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['A', 'B', 'C'],
   },
   description: {
     type: String,

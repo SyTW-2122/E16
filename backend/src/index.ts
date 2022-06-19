@@ -27,13 +27,18 @@ app.use(morgan('dev')); // comunica mejor los fallos
 app.use(express.json());
 app.use(localizacionRouter);
 app.use(puntoSubRouter);
+
 app.use(zonaRouter);
+app.use(registerRouter);
 
 // app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use('/cuenta', verifyToken, cuentaRouter);
-app.use('/perfil', verifyToken, perfilRouter);
-// app.use(perfilRouter);
-app.use(registerRouter);
+
+// TO DO: Separar las peticiones get y post + patch de perfil en dos routers diferentes
+// el de get es un router normal y el otro debe ser usando verifyToken
+
+// app.use('/perfil', verifyToken, perfilRouter);
+app.use(perfilRouter);
 
 // Crear servidor htpp
 

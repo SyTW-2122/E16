@@ -3,17 +3,17 @@ import {perfilModel} from '../../models/perfil';
 import {cuentaModel} from "../../models/cuenta";
 export const perfilRouter = express.Router();
 
-perfilRouter.get('/', async (req, res) => {
-  console.log(req.header('username'));
-  const filter = req.header.username?{username: req.header.username.toString()}:{};
-  // const filter = req.header.userID?{username: req.header.userID.toString()}:{};
-  // const filter = req.header.email?{username: req.header.email.toString()}:{};
-  const perfilEncontrado = await perfilModel.find(filter);
-  if (!perfilEncontrado) return res.status(403).json({error: 'Cuenta no encontrada'});
+// NOTA: Este get debe ser utilizable por todo el mundo, es decir:
+// NO USA EL MIDDLEWARE de Verify Token
+perfilRouter.get('/perfil', async (req, res) => {
+  const usernameFilter = req.get('username');
+  if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
+
   try {
-    const perfilesMatch = await perfilModel.find(filter);
+    const perfilesMatch = await perfilModel.find({username: usernameFilter});
     if (perfilesMatch.length !== 0) {
-      return res.json(perfilesMatch);
+      // find() devuelve un array de 1 elemento, así que solo devolvemos ese
+      return res.json(perfilesMatch[0]);
     }
     return res.status(402).send();
   } catch (error) {
@@ -21,20 +21,28 @@ perfilRouter.get('/', async (req, res) => {
   }
 });
 
-perfilRouter.post('/', async (req, res) => {
+// NOTA: Estas peticiones de post y patch solo deberían poder ser usadas por usuario con cuenta.
+// Es decir: tiene que pasar por el Middleware de Verify Token.
+// SOLUCIÓN: Separar las peticiones en dos routers diferentes. TO DO!!
+perfilRouter.post('/perfil', async (req, res) => {
   const {error} = cuentaModel.validate(req.body);
   if (error) return res.status(402).json({error: error.details[0].message});
+
   const perfil = new perfilModel({
     username: req.body.username,
     age: req.body.age,
     license: req.body.license,
     description: req.body.description,
   });
-  const filter = req.header.username?{username: req.header.username}:{};
-  // const filter = req.header.userID?{username: req.header.userID.toString()}:{};
-  // const filter = req.header.email?{username: req.header.email.toString()}:{};
-  const cuentaEncontrada = await cuentaModel.find(filter);
+
+  const usernameFilter = req.get('username');
+  if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
+
+  const aux = await cuentaModel.find({username: usernameFilter});
+  // find() devuelve un array de 1 elemento, así que solo usamos ese
+  const cuentaEncontrada = aux[0];
   if (!cuentaEncontrada) return res.status(403).json({error: 'Cuenta no encontrada'});
+
   try {
     await perfil.save();
     await cuentaModel.update({_id: cuentaEncontrada._id},
@@ -45,48 +53,22 @@ perfilRouter.post('/', async (req, res) => {
   }
 });
 
-perfilRouter.patch('/', async (req, res) => {
-  const filter = req.header.username?{username: req.header.username}:{};
-  // const filter = req.header.userID?{username: req.header.userID.toString()}:{};
-  // const filter = req.header.email?{username: req.header.email.toString()}:{};
-  const perfilEncontrado = await perfilModel.find(filter);
+perfilRouter.patch('/perfil', async (req, res) => {
+  const usernameFilter = req.get('username');
+  if (!usernameFilter) return res.status(404).json({error: 'No se indica el usuario en el header.'});
+
+  const aux = await perfilModel.find({username: usernameFilter});
+  // find() devuelve un array de 1 elemento, así que solo usamos ese
+  const perfilEncontrado = aux[0];
   if (!perfilEncontrado) return res.status(403).json({error: 'Cuenta no encontrada'});
-
-  let newNickname = "";
-  if (typeof req.body.username != undefined) {
-    newNickname = req.body.username;
-  } else {
-    newNickname = perfilEncontrado.username;
-  }
-
-  let newName = "";
-  if (typeof req.body.name != undefined) {
-    newName = req.body.name;
-  } else {
-    newName = perfilEncontrado.name;
-  }
-
-  let newSurname = "";
-  if (typeof req.body.surname != undefined) {
-    newSurname = req.body.surname;
-  } else {
-    newSurname = perfilEncontrado.surname;
-  }
-
-  let newAddress = "";
-  if (typeof req.body.address != undefined) {
-    newAddress = req.body.address;
-  } else {
-    newAddress = perfilEncontrado.address;
-  }
 
   try {
     await perfilModel.updateOne({_id: perfilEncontrado._id},
         {$set: {
-          username: newNickname,
-          name: newName,
-          surname: newSurname,
-          address: newAddress,
+          username: req.body.username || perfilEncontrado.username,
+          age: req.body.age || perfilEncontrado.age,
+          license: req.body.license || perfilEncontrado.license,
+          description: req.body.description || perfilEncontrado.description,
         }});
   } catch (error) {
 

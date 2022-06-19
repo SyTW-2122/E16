@@ -17,7 +17,7 @@ export const verifyToken = (req, res, next) => {
       try {
         const verified = jwtToken.verify(token, secret);
         req.user = verified;
-        console.log(req.user);
+        // console.log(req.user);
         next(); // next() indica que el req paso la prueba y continue su camino
       } catch (error) {
         res.status(402).json({error: 'Token de acceso no válido.'});
