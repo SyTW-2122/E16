@@ -5,8 +5,8 @@ export const cuentaRouter = express.Router();
 // NO ES LOGIN NI REGISTRO. ÚNICAMENTE PARA RECUPERAR Y EXPONER LOS DATOS DE UNA CUENTA.
 
 cuentaRouter.get('/', async (req, res) => {
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
 
   try {
     const cuentasMatch = await cuentaModel.find({username: usernameFilter});
@@ -21,8 +21,8 @@ cuentaRouter.get('/', async (req, res) => {
 });
 
 cuentaRouter.patch('/', async (req, res) => {
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(404).json({error: 'No se indica el usuario en el header.'});
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(404).json({error: 'No se ha obtenido el username de locals'});
 
   const aux = await cuentaModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
@@ -44,8 +44,8 @@ cuentaRouter.patch('/', async (req, res) => {
 });
 
 cuentaRouter.delete('/', async (req, res) => {
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(404).json({error: 'No se indica el usuario en el header.'});
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(404).json({error: 'No se ha obtenido el username de locals'});
 
   const aux = await cuentaModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese

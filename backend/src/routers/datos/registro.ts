@@ -51,7 +51,7 @@ registerRouter.post('/login', async (req, res) => {
       const secret = data.toString();
       try {
         const token = jwt.sign({
-          name: cuenta.username,
+          username: cuenta.username,
           email: cuenta.email,
           id: cuenta._id,
         }, secret);

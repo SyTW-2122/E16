@@ -7,8 +7,9 @@ export const publicPerfilRouter = express.Router();
 // NOTA: Este get pertenece a publicPerfilRouter!!!!
 // NO USA EL MIDDLEWARE de Verify Token
 publicPerfilRouter.get('/perfil', async (req, res) => {
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
+  // Lo recibe por el header (u otro sitio) porque no usa el verifyToken
+  const usernameFilter = req.header('username');
+  if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username del header'});
 
   try {
     const perfilesMatch = await perfilModel.find({username: usernameFilter});
@@ -24,18 +25,18 @@ publicPerfilRouter.get('/perfil', async (req, res) => {
 
 // NOTA: Los métodos post y patch pertenecen a perfilRouter!!
 perfilRouter.post('/', async (req, res) => {
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
+
   const {error} = cuentaModel.validate(req.body);
   if (error) return res.status(402).json({error: error.details[0].message});
 
   const perfil = new perfilModel({
-    username: req.body.username,
+    username: usernameFilter,
     age: req.body.age,
     license: req.body.license,
     description: req.body.description,
   });
-
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
 
   const aux = await cuentaModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
@@ -53,9 +54,12 @@ perfilRouter.post('/', async (req, res) => {
 });
 
 perfilRouter.patch('/', async (req, res) => {
-  const usernameFilter = req.get('username');
-  if (!usernameFilter) return res.status(404).json({error: 'No se indica el usuario en el header.'});
+  console.log('PATCH: res.locals.username -> ' + res.locals.username);
+  // const usernameFilter = res.locals.username;
+  // console.log(usernameFilter);
+  // if (!usernameFilter) return res.status(404).json({error: 'No se ha obtenido el username de locals'});
 
+  /*
   const aux = await perfilModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
   const perfilEncontrado = aux[0];
@@ -72,4 +76,5 @@ perfilRouter.patch('/', async (req, res) => {
   } catch (error) {
 
   }
+  */
 });
