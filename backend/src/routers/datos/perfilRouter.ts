@@ -2,10 +2,11 @@ let express = require('express');
 import {perfilModel} from '../../models/perfil';
 import {cuentaModel} from "../../models/cuenta";
 export const perfilRouter = express.Router();
+export const publicPerfilRouter = express.Router();
 
-// NOTA: Este get debe ser utilizable por todo el mundo, es decir:
+// NOTA: Este get pertenece a publicPerfilRouter!!!!
 // NO USA EL MIDDLEWARE de Verify Token
-perfilRouter.get('/perfil', async (req, res) => {
+publicPerfilRouter.get('/perfil', async (req, res) => {
   const usernameFilter = req.get('username');
   if (!usernameFilter) return res.status(401).json({error: 'No se indica el usuario en el header.'});
 
@@ -21,10 +22,8 @@ perfilRouter.get('/perfil', async (req, res) => {
   }
 });
 
-// NOTA: Estas peticiones de post y patch solo deberían poder ser usadas por usuario con cuenta.
-// Es decir: tiene que pasar por el Middleware de Verify Token.
-// SOLUCIÓN: Separar las peticiones en dos routers diferentes. TO DO!!
-perfilRouter.post('/perfil', async (req, res) => {
+// NOTA: Los métodos post y patch pertenecen a perfilRouter!!
+perfilRouter.post('/', async (req, res) => {
   const {error} = cuentaModel.validate(req.body);
   if (error) return res.status(402).json({error: error.details[0].message});
 
@@ -53,7 +52,7 @@ perfilRouter.post('/perfil', async (req, res) => {
   }
 });
 
-perfilRouter.patch('/perfil', async (req, res) => {
+perfilRouter.patch('/', async (req, res) => {
   const usernameFilter = req.get('username');
   if (!usernameFilter) return res.status(404).json({error: 'No se indica el usuario en el header.'});
 

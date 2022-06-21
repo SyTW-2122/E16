@@ -5,12 +5,13 @@ const morgan = require('morgan');
 import {cuentaRouter} from './routers/datos/cuentaRouter';
 import {localizacionRouter} from './routers/datos/localizacionRouter';
 import {perfilRouter} from './routers/datos/perfilRouter';
+import {publicPerfilRouter} from './routers/datos/perfilRouter';
 import {puntoSubRouter} from './routers/datos/puntoSubRouter';
 import {zonaRouter} from './routers/datos/zonaRouter';
 import {registerRouter} from './routers/datos/registro';
 
 const cors = require('cors'); // Dependencia
-const dashboardRoutes = require('./routers/dashboard');
+// const dashboardRoutes = require('./routers/dashboard');
 const verifyToken = require('./routers/jwt/verifyToken');
 
 // Creamos la variable de configuración
@@ -27,18 +28,16 @@ app.use(morgan('dev')); // comunica mejor los fallos
 app.use(express.json());
 app.use(localizacionRouter);
 app.use(puntoSubRouter);
-
 app.use(zonaRouter);
 app.use(registerRouter);
 
+// NOTA:  Tenemos dos routers para perfil: uno público para el get
+//        y uno con el middleware para post y patch.
+app.use(publicPerfilRouter);
+app.use('/perfil', verifyToken, perfilRouter);
+
 // app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use('/cuenta', verifyToken, cuentaRouter);
-
-// TO DO: Separar las peticiones get y post + patch de perfil en dos routers diferentes
-// el de get es un router normal y el otro debe ser usando verifyToken
-
-// app.use('/perfil', verifyToken, perfilRouter);
-app.use(perfilRouter);
 
 // Crear servidor htpp
 
