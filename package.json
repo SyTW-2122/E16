@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "",
     "npm start": "node backend/dist/index.js",
     "npm dev": "tsc-watch --onSuccess \"node backend/dist/index.js\"",
     "npm doc": "typedoc"
