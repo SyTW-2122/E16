@@ -57,8 +57,7 @@ registerRouter.post('/login', async (req, res) => {
   try {
     fs.readFile(filePath, 'utf8', function(err, data) {
       if (err) throw err;
-      // Leemos el secreto del fichero
-      const secret = data.toString();
+      const secret = data.toString(); // Leemos el secreto del fichero
       try {
         const token = jwt.sign({
           username: cuenta.username,
@@ -106,11 +105,11 @@ registerRouter.post('/registro', async (req, res) => {
 
   try {
     const savedAccount = await cuentaNueva.save();
-    res.json({
+    return res.status(200).json({
       error: null,
       data: savedAccount,
     });
   } catch (error) {
-    res.status(403).json({error});
+    return res.status(403).json("Fallo al salvar la cuenta.");
   }
 });
