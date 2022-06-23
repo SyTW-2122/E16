@@ -18,6 +18,7 @@ export const verifyToken = (req, res, next) => {
         const verified = jwtToken.verify(token, secret);
         req.user = verified;
         res.locals.username = req.user.username;
+        res.locals.id = req.user.id;
         console.log(req.user);
         next(); // next() indica que el req paso la prueba y continue su camino
       } catch (error) {

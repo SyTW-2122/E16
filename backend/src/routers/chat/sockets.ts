@@ -1,4 +1,4 @@
-/**
+
 import {chatSchema} from '../../models/chat';
 
 export default (io) => {
@@ -68,4 +68,3 @@ export default (io) => {
     }
   });
 };
-*/

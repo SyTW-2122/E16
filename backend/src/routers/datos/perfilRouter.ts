@@ -13,13 +13,13 @@ publicPerfilRouter.get('/perfil', async (req, res) => {
 
   try {
     const perfilesMatch = await perfilModel.find({username: usernameFilter});
-    if (perfilesMatch.length !== 0) {
+    if (perfilesMatch.length != 0) {
       // find() devuelve un array de 1 elemento, así que solo devolvemos ese
-      return res.json(perfilesMatch[0]);
+      return res.status(200).json(perfilesMatch[0]);
     }
-    return res.status(402).send();
+    return res.status(404).send("No se encontró ningún perfil.");
   } catch (error) {
-    return res.status(500).send();
+    return res.status(402).send("Error al buscar perfil.");
   }
 });
 
@@ -41,7 +41,7 @@ perfilRouter.post('/', async (req, res) => {
   const aux = await cuentaModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
   const cuentaEncontrada = aux[0];
-  if (!cuentaEncontrada) return res.status(403).json({error: 'Cuenta no encontrada'});
+  if (!cuentaEncontrada) return res.status(404).json({error: 'Cuenta no encontrada'});
 
   try {
     await perfil.save();
@@ -49,21 +49,18 @@ perfilRouter.post('/', async (req, res) => {
         {$set: {profileID: perfil._id}});
     res.status(201).json(perfil);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(403).send(error);
   }
 });
 
 perfilRouter.patch('/', async (req, res) => {
-  console.log('PATCH: res.locals.username -> ' + res.locals.username);
-  // const usernameFilter = res.locals.username;
-  // console.log(usernameFilter);
-  // if (!usernameFilter) return res.status(404).json({error: 'No se ha obtenido el username de locals'});
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
 
-  /*
   const aux = await perfilModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
   const perfilEncontrado = aux[0];
-  if (!perfilEncontrado) return res.status(403).json({error: 'Cuenta no encontrada'});
+  if (!perfilEncontrado) return res.status(404).json({error: 'Cuenta no encontrada'});
 
   try {
     await perfilModel.updateOne({_id: perfilEncontrado._id},
@@ -73,8 +70,8 @@ perfilRouter.patch('/', async (req, res) => {
           license: req.body.license || perfilEncontrado.license,
           description: req.body.description || perfilEncontrado.description,
         }});
+    return res.status(200).send("Actualizado correctamente.");
   } catch (error) {
-
+    return res.status(403).send("Error al salvar los cambios.");
   }
-  */
 });

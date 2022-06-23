@@ -26,18 +26,28 @@ const schemaRegister = Joi.object({
   password: Joi.string().min(6).max(1024).required(),
 });
 
-const schemaLogin = Joi.object({
+const schemaLoginEmail = Joi.object({
   email: Joi.string().min(6).max(255).required().email(),
+  password: Joi.string().min(6).max(1024).required(),
+});
+
+const schemaLoginUser = Joi.object({
+  email: Joi.string().min(6).max(255).required(),
   password: Joi.string().min(6).max(1024).required(),
 });
 
 registerRouter.post('/login', async (req, res) => {
   // Validaciones de login
-  const {error} = schemaLogin.validate(req.body);
-  if (error) return res.status(402).json({error: error.details[0].message});
+  const {emailError} = schemaLoginEmail.validate(req.body);
+  const {usernameError} = schemaLoginUser.validate(req.body);
+  if (emailError && usernameError) {
+    return res.status(402).json({error: emailError.details[0].message,
+      error2: usernameError.details[0].message});
+  }
 
   // Validacion de existencia
-  const cuenta = await cuentaModel.findOne({email: req.body.email});
+  const cuenta = await cuentaModel.findOne({email: req.body.email}) ||
+      await cuentaModel.findOne({username: req.body.email});
   if (!cuenta) return res.status(404).json({error: 'Cuenta no encontrada'});
 
   // Validacion de password en la base de datos

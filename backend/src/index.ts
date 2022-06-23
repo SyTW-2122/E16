@@ -41,13 +41,13 @@ app.use('/cuenta', verifyToken, cuentaRouter);
 
 // Crear servidor htpp
 
-// import http from "http";
-// import socketio from "socket.io";
-// import sockets from "./routers/chat/sockets";
-
-// const server = http.createServer(app);
+const http = require('http');
+import sockets from "./routers/chat/sockets";
+const server = http.createServer(app);
+const {Server} = require("socket.io");
+const io = new Server(server);
 // const io = socketio(server);
-// sockets(io);
+sockets(io);
 
 
 const port = 3000;
