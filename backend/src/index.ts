@@ -46,7 +46,6 @@ import sockets from "./routers/chat/sockets";
 const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
-// const io = socketio(server);
 sockets(io);
 
 
