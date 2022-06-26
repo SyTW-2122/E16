@@ -11,7 +11,6 @@ import {zonaRouter} from './routers/datos/zonaRouter';
 import {registerRouter} from './routers/datos/registro';
 
 const cors = require('cors'); // Dependencia
-// const dashboardRoutes = require('./routers/dashboard');
 const verifyToken = require('./routers/jwt/verifyToken');
 
 // Creamos la variable de configuración
@@ -36,11 +35,9 @@ app.use(registerRouter);
 app.use(publicPerfilRouter);
 app.use('/perfil', verifyToken, perfilRouter);
 
-// app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use('/cuenta', verifyToken, cuentaRouter);
 
 // Crear servidor htpp
-
 const http = require('http');
 import sockets from "./routers/chat/sockets";
 const server = http.createServer(app);

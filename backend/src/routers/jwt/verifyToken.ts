@@ -4,7 +4,7 @@ const jwtToken = require('jsonwebtoken');
 
 const fs = require('fs');
 const path = require('path');
-const filePath = path.join('/mnt/d/Universidad/STW/E16/backend/', 'secret.txt');
+const filePath = path.join('/mnt/c/Users/oscar/OneDrive/Escritorio/E16/backend/', 'secret.txt');
 
 export const verifyToken = (req, res, next) => {
   const token = req.header('token');
