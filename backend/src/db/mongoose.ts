@@ -1,10 +1,11 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-const mongodb_url = `mongodb+srv://diving-app:diving@cluster0.hcjkr.mongodb.net/Diving-App?retryWrites=true&w=majority`
+// eslint-disable-next-line camelcase
+const mongodb_url = `mongodb+srv://diving-app:diving@cluster0.hcjkr.mongodb.net/Diving-App?retryWrites=true&w=majority`;
 
 mongoose.connect(mongodb_url, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 }).then(() => {
   console.log('Connection to MongoDB server established');
 }).catch(() => {

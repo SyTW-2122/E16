@@ -9,17 +9,17 @@ export const perfilSchema = new mongoose.Schema({
   },
   age: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   license: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
 });

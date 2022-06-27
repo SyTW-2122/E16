@@ -28,14 +28,14 @@ perfilRouter.post('/', async (req, res) => {
   const usernameFilter = res.locals.username;
   if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
 
-  const {error} = cuentaModel.validate(req.body);
-  if (error) return res.status(402).json({error: error.details[0].message});
+  const updatePerfil = await perfilModel.findOne({username: usernameFilter});
+  if (updatePerfil) return res.status(402).json({error: 'Ya existe un perfil.'});
 
   const perfil = new perfilModel({
     username: usernameFilter,
-    age: req.body.age,
-    license: req.body.license,
-    description: req.body.description,
+    age: req.body.age || undefined,
+    license: req.body.license || undefined,
+    description: req.body.description || undefined,
   });
 
   const aux = await cuentaModel.find({username: usernameFilter});
@@ -45,9 +45,9 @@ perfilRouter.post('/', async (req, res) => {
 
   try {
     await perfil.save();
-    await cuentaModel.update({_id: cuentaEncontrada._id},
+    await cuentaModel.updateOne({_id: cuentaEncontrada._id},
         {$set: {profileID: perfil._id}});
-    res.status(201).json(perfil);
+    res.status(200).json(perfil);
   } catch (error) {
     res.status(403).send(error);
   }

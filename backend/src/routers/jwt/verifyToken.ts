@@ -4,7 +4,8 @@ const jwtToken = require('jsonwebtoken');
 
 const fs = require('fs');
 const path = require('path');
-const filePath = path.join('/mnt/c/Users/oscar/OneDrive/Escritorio/E16/backend/', 'secret.txt');
+// const filePath = path.join('/mnt/c/Users/oscar/OneDrive/Escritorio/E16/backend/', 'secret.txt');
+const filePath = path.join('/mnt/d/Universidad/STW/E16/backend/', 'secret.txt');
 
 export const verifyToken = (req, res, next) => {
   const token = req.header('token');
@@ -19,6 +20,7 @@ export const verifyToken = (req, res, next) => {
         req.user = verified;
         res.locals.username = req.user.username;
         res.locals.id = req.user.id;
+        res.locals.password = req.user.password;
         console.log(req.user);
         next(); // next() indica que el req paso la prueba y continue su camino
       } catch (error) {
