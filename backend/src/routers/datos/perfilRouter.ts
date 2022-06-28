@@ -8,8 +8,25 @@ export const publicPerfilRouter = express.Router();
 // NO USA EL MIDDLEWARE de Verify Token
 publicPerfilRouter.get('/perfil', async (req, res) => {
   // Lo recibe por el header (u otro sitio) porque no usa el verifyToken
+  console.log(req.header);
   const usernameFilter = req.header('username');
   if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username del header'});
+  console.log(usernameFilter);
+  try {
+    const perfilesMatch = await perfilModel.find({username: usernameFilter});
+    if (perfilesMatch.length != 0) {
+      // find() devuelve un array de 1 elemento, así que solo devolvemos ese
+      return res.status(200).json(perfilesMatch[0]);
+    }
+    return res.status(404).send("No se encontró ningún perfil.");
+  } catch (error) {
+    return res.status(402).send("Error al buscar perfil.");
+  }
+});
+
+perfilRouter.get('/perfil', async (req, res) => {
+  const usernameFilter = res.locals.username;
+  if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
 
   try {
     const perfilesMatch = await perfilModel.find({username: usernameFilter});

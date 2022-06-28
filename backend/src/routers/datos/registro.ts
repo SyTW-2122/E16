@@ -65,10 +65,11 @@ registerRouter.post('/login', async (req, res) => {
           email: cuenta.email,
           id: cuenta._id,
         }, secret);
-
+        console.log("Cuenta username: " + cuenta.username);
         res.json({
           error: null,
           data: {token},
+          username: cuenta.username,
           message: 'Bienvenido',
         });
         return res.status(200).send();
