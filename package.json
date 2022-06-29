@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node --optimize_for_size --max_old_space_size=920 ./node_modules/@angular/cli/bin/ng serve",
     "build": "node --optimize_for_size --max_old_space_size=920 ./node_modules/@angular/cli/bin/ng build",
-    "test": ""
+    "test": "ng test"
   },
   "compilerOptions": {
     "types": [
