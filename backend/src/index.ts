@@ -39,11 +39,11 @@ app.use('/cuenta', verifyToken, cuentaRouter);
 
 // Crear servidor htpp
 const http = require('http');
-import sockets from "./routers/chat/sockets";
+import chatSockets from "./routers/chat/ChatSockets";
 const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
-sockets(io);
+chatSockets(io);
 
 
 const port = process.env.PORT || 3000;

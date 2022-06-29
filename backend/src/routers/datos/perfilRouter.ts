@@ -8,10 +8,9 @@ export const publicPerfilRouter = express.Router();
 // NO USA EL MIDDLEWARE de Verify Token
 publicPerfilRouter.get('/perfil', async (req, res) => {
   // Lo recibe por el header (u otro sitio) porque no usa el verifyToken
-  console.log(req.header);
   const usernameFilter = req.header('username');
   if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username del header'});
-  console.log(usernameFilter);
+
   try {
     const perfilesMatch = await perfilModel.find({username: usernameFilter});
     if (perfilesMatch.length != 0) {

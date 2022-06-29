@@ -11,11 +11,6 @@ require('dotenv').config();
 export const registerRouter = require('express').Router();
 import {cuentaModel} from "../../models/cuenta";
 
-const fs = require('fs');
-const path = require('path');
-// const filePath = path.join('/mnt/c/Users/oscar/OneDrive/Escritorio/E16/backend/', 'secret.txt');
-const filePath = path.join('/mnt/d/Universidad/STW/E16/backend/', 'secret.txt');
-
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -54,37 +49,29 @@ registerRouter.post('/login', async (req, res) => {
   // Validacion de password en la base de datos
   const validPassword = await bcrypt.compare(req.body.password, cuenta.password);
   if (!validPassword) return res.status(403).json({error: 'Constraseña invalida'});
-
+  
   try {
-    fs.readFile(filePath, 'utf8', function(err, data) {
-      if (err) throw err;
-      const secret = data.toString(); // Leemos el secreto del fichero
-      try {
-        const token = jwt.sign({
-          username: cuenta.username,
-          email: cuenta.email,
-          id: cuenta._id,
-        }, secret);
-        console.log("Cuenta username: " + cuenta.username);
-        res.json({
-          error: null,
-          data: {token},
-          username: cuenta.username,
-          message: 'Bienvenido',
-        });
-        return res.status(200).send();
-      } catch (error) {
-        return res.status(501).send('Error al generar el token');
-      }
+    const secret = process.env.JWT_SECRET;
+    const token = jwt.sign({
+      username: cuenta.username,
+      email: cuenta.email,
+      id: cuenta._id,
+    }, secret);
+
+    res.json({
+      error: null,
+      data: {token},
+      username: cuenta.username,
+      message: 'Bienvenido',
     });
+    return res.status(200).send();
   } catch (error) {
-    return res.status(400).send('Error al leer el token');
+    return res.status(501).send('Error al generar el token');
   }
 });
 
 registerRouter.post('/registro', async (req, res) => {
   // Usaremos la propiedad error del objeto que nos entrega schemaRegister.validate()
-  console.log(req.body);
   const {error} = schemaRegister.validate(req.body);
 
   // Si este error existe, aqui se termina la ejecución devolviendonos el error
