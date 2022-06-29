@@ -1,12 +1,4 @@
-/* eslint-disable new-cap */
-/*
-- Router() que nos permite crear rutas. Este lo almacenamos en una constante para utilizarla luego.
 
-- Ruta de tipo POST pasamos como parametro el nombre de la ruta seguido de la función que ejecutara.
-La funcion que se le pasa tiene dos parametros req y res
-
-- Para probar nuestra ruta POST tomará el response res utilizará .json para crear un json y enviarlo de vuelta al usuario con el mensaje
-*/
 require('dotenv').config();
 export const registerRouter = require('express').Router();
 import {cuentaModel} from "../../models/cuenta";

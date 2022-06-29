@@ -4,10 +4,8 @@ import {cuentaModel} from "../../models/cuenta";
 export const perfilRouter = express.Router();
 export const publicPerfilRouter = express.Router();
 
-// NOTA: Este get pertenece a publicPerfilRouter!!!!
 // NO USA EL MIDDLEWARE de Verify Token
 publicPerfilRouter.get('/perfil', async (req, res) => {
-  // Lo recibe por el header (u otro sitio) porque no usa el verifyToken
   const usernameFilter = req.header('username');
   if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username del header'});
 
@@ -54,6 +52,8 @@ perfilRouter.post('/', async (req, res) => {
     description: req.body.description || undefined,
   });
 
+  console.log("usernameFilter de POST: " + usernameFilter);
+
   const aux = await cuentaModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese
   const cuentaEncontrada = aux[0];
@@ -72,6 +72,8 @@ perfilRouter.post('/', async (req, res) => {
 perfilRouter.patch('/', async (req, res) => {
   const usernameFilter = res.locals.username;
   if (!usernameFilter) return res.status(401).json({error: 'No se ha obtenido el username de locals'});
+
+  console.log("usernameFilter de PATCH: " + usernameFilter);
 
   const aux = await perfilModel.find({username: usernameFilter});
   // find() devuelve un array de 1 elemento, así que solo usamos ese

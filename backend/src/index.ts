@@ -10,15 +10,14 @@ import {puntoSubRouter} from './routers/datos/puntoSubRouter';
 import {zonaRouter} from './routers/datos/zonaRouter';
 import {registerRouter} from './routers/datos/registro';
 
-const cors = require('cors'); // Dependencia
+const cors = require('cors');
 const verifyToken = require('./routers/jwt/verifyToken');
 
-// Creamos la variable de configuración
+
 const corsOptions = {
-  // Aqui debemos reemplazar el * por el dominio de nuestro front
-  origin: '*',
-  // Es necesario para navegadores antiguos o algunos SmartTVs
-  optionsSuccessStatus: 200,
+  
+  origin: '*', // Aqui debemos reemplazar el * por el dominio de nuestro front
+  optionsSuccessStatus: 200, // Es necesario para navegadores antiguos o algunos SmartTVs
 };
 
 const app = express();
@@ -34,7 +33,6 @@ app.use(registerRouter);
 //        y uno con el middleware para post y patch.
 app.use(publicPerfilRouter);
 app.use('/perfil', verifyToken, perfilRouter);
-
 app.use('/cuenta', verifyToken, cuentaRouter);
 
 // Crear servidor htpp
@@ -44,7 +42,6 @@ const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
 chatSockets(io);
-
 
 const port = process.env.PORT || 3000;
 

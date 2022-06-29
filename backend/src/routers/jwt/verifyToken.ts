@@ -12,8 +12,7 @@ export const verifyToken = (req, res, next) => {
     res.locals.username = req.user.username;
     res.locals.id = req.user.id;
     res.locals.password = req.user.password;
-    // console.log(req.user);
-    next(); // next() indica que el req paso la prueba y continue su camino
+    next();
   } catch (error) {
     res.status(402).json({error: 'Token de acceso no válido.'});
   }
