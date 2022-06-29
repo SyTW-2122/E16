@@ -1,0 +1,34 @@
+<div class="container-fluid mt-5">
+    <h1 class="text-center">Perfil de usuario</h1>
+  </div>
+  <hr width=400>
+  <div class="container">
+    <div class="row">
+      <div>
+      
+      <br><br>
+      <div class="container-fluid mt-5">
+        <table ALIGN= "center" class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="row">Nombre de usuario</th>
+              <td>{{username$ | async}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Edad</th>
+              <td>{{age$ | async}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Licencia</th>
+              <td>{{license$ | async}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Descripción</th>
+              <td>{{description$ | async}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 

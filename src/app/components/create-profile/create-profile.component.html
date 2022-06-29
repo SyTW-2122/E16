@@ -1,0 +1,36 @@
+<div class="container-fluid mt-5">
+  <h1 class="text-center">Perfil de usuario</h1>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-title text-center"><h1>Introduzca sus de datos de perfil</h1></div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <div>
+            <input class="input-group mb-3" formControlName="age" type="text" placeholder="Edad" />
+          </div>
+          <span></span>
+          <div>
+            <input class="input-group mb-3" formControlName="license" type="text" placeholder="Licencia" />
+          </div>
+          <div>
+            <input class="input-group mb-3" formControlName="description" type="text" placeholder="Tu descripción" />
+          </div>
+          <div>
+            <input (change)="onFileSelect($event)" type="file" />
+          </div>
+          <div *ngIf="imageData">
+            <img [src]="imageData" [alt]="form.value.name" />
+          </div>
+          <div class="col text-center mt-3">
+            <button class="btn btn-primary btn-block" type="submit">Aplicar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
