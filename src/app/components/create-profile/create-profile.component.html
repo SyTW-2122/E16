@@ -20,12 +20,6 @@
           <div>
             <input class="input-group mb-3" formControlName="description" type="text" placeholder="Tu descripción" />
           </div>
-          <div>
-            <input (change)="onFileSelect($event)" type="file" />
-          </div>
-          <div *ngIf="imageData">
-            <img [src]="imageData" [alt]="form.value.name" />
-          </div>
           <div class="col text-center mt-3">
             <button class="btn btn-primary btn-block" type="submit">Aplicar cambios</button>
           </div>

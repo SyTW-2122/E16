@@ -9,7 +9,7 @@ export class UploadComponent implements OnInit {
 
   title = 'toolsets';
   // this.url = "https:/backend-tenerifebriefing.herokuapp.com/api/file/multifiles";
-  url = "http://localhost:3000/api/file/multifiles";
+  url = "https://backend-of-sytw.herokuapp.com/api/file/multifiles";
 
   constructor(private httpClient: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 })
 export class AuthService {
   // private URL = "https://backend-tenerifebriefing.herokuapp.com"
-  URL = "http://localhost:3000";
+  URL = "https://backend-of-sytw.herokuapp.com";
   static getToken: any;
 
   constructor(private http: HttpClient, private router:Router) { }

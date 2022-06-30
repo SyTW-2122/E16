@@ -16,7 +16,7 @@ export class ProfileService {
   private profile: Profile;
   private profiles$ = new Subject<Profile[]>();
   // readonly url = "https://backend-tenerifebriefing.herokuapp.com";
-  url = "http://localhost:3000";
+  url = "https://backend-of-sytw.herokuapp.com";
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 

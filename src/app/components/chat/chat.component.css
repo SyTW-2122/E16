@@ -26,3 +26,7 @@
   font-weight: bold;
   font-size: 30px;
 }
+
+.scrollarea {
+  min-height: 500px;
+}
